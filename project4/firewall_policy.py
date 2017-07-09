@@ -15,7 +15,7 @@ def make_firewall_policy(config):
     # structures needed outside of the config loop.
 
     # feel free to remove the following "print config" line once you no longer need it
-    print config # for demonstration purposes only, so you can see the format of the config
+    #print config # for demonstration purposes only, so you can see the format of the config
 
     rules = []
 
@@ -37,12 +37,11 @@ def make_firewall_policy(config):
         if entry['dstip'] != '-':
             rule &= match(dstip=IPAddr(entry['dstip']))
         if entry['srcport'] != '-':
-            rule &= match(srcport=int(entry['srcport']),protocol=int(entry['protocol']))
+            rule &= match(srcport=int(entry['srcport']))
         if entry['dstport'] != '-':
-            rule &= match(dstport=int(entry['dstport']),protocol=int(entry['protocol']))
-        if entry['srcport']=='-' and entry['srcport']=='-' and entry['protocol'] !='-':
+            rule &= match(dstport=int(entry['dstport']))
+        if entry['protocol'] !='-':
             rule &= match(protocol=int(entry['protocol']))
-        #test rule = match(dstport=445,ethtype=packet.IPV4, protocol=packet.TCP_PROTO)
         rules.append(rule)
         pass
 
